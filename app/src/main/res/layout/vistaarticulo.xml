@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="35dp">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listaArticulos">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No_sini:"
+            android:id="@+id/txtnumerosini"
+            android:textSize="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvn_sini"
+            android:layout_marginTop="40dp"
+            android:textSize="20dp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripcion:"
+            android:id="@+id/txtdescripcionvista"
+            android:layout_marginTop="80dp"
+            android:textSize="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvdescripcionvista"
+            android:layout_marginTop="140dp"
+            android:textSize="20dp"
+            />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:text="Detalles"
+            android:id="@+id/btndetalle"
+            android:layout_gravity="right"/>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

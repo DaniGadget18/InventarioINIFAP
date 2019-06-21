@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Articulo_fragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Numero SINI: "
+                android:id="@+id/txtn_sini"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtn_sini"
+                android:textSize="20dp"
+                android:id="@+id/tvnumerosini"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripción: "
+                android:layout_below="@id/tvnumerosini"
+                android:textSize="30dp"
+                android:id="@+id/txtdescripcion"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtdescripcion"
+                android:id="@+id/tvdescripcion"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Centro: "
+                android:layout_below="@id/tvdescripcion"
+                android:textSize="30dp"
+                android:id="@+id/txtCentro"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtCentro"
+                android:id="@+id/tvcentro"
+                android:textSize="20dp"/>
+
+
+        </RelativeLayout>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Agregar"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="80dp"
+        android:id="@+id/agregar" />
+
+</FrameLayout>
