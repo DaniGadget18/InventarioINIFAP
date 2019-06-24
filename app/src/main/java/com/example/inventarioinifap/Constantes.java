@@ -29,6 +29,7 @@ public class Constantes {
     public static final String ObtenerArticulo = IP + "/Inventario/ControladorAndroid/Articulo_codigo.php";
     public static final String RegistrarArticulo = IP + "/Inventario/ControladorAndroid/RegistrarArticulo.php";
     public static final String ObtenerArticulos = IP + "/Inventario/ControladorAndroid/ObtenerArticulos.php";
+    public static final String ArticulosFaltantes = IP + "/Inventario/ControladorAndroid/ComprobarArticulosFaltantes.php";
 
     /**
      * Clave para el valor extra que representa al identificador de una meta

@@ -1,5 +1,6 @@
 package com.example.inventarioinifap;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -7,20 +8,23 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.TextView;
 
-public class home_bar extends AppCompatActivity implements inicioFragment.OnFragmentInteractionListener, codigoQRFrag.OnFragmentInteractionListener, Articulo_fragment.OnFragmentInteractionListener, ListaArticulos.OnFragmentInteractionListener {
+public class home_bar extends AppCompatActivity implements inicioFragment.OnFragmentInteractionListener, codigoQRFrag.OnFragmentInteractionListener, Articulo_fragment.OnFragmentInteractionListener, ListaArticulos.OnFragmentInteractionListener, CerrarInventario.OnFragmentInteractionListener {
     private TextView mTextMessage;
     FragmentTransaction fragmentTransaction;
     private TextView mtvusuario;
     private TabLayout tabs;
+    Window window;
 
 
     public void SetupTabs(TabLayout tabLayout)
     {
-        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.ic_home_black_24dp).setText("Inicio"));
-        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.ic_launcher_background).setText("CodigoQR"));
-        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.ic_notifications_black_24dp).setText("Articulos"));
+        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.home).setText("Inicio"));
+        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.qr).setText("CodigoQR"));
+        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.registrados).setText("Articulos"));
+        tabLayout.addTab(tabs.newTab().setIcon(R.drawable.faltantes).setText("Cerrar"));
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -51,6 +55,14 @@ public class home_bar extends AppCompatActivity implements inicioFragment.OnFrag
                     ListaArticulos ListaArt = new ListaArticulos();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.container_frame,ListaArt,"ListaArticulos");
+                    fragmentTransaction.commit();
+                }
+
+                if (tab.getText() == "Cerrar")
+                {
+                    CerrarInventario cerrarInventario = new CerrarInventario();
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container_frame,cerrarInventario,"Cerrar Inventario");
                     fragmentTransaction.commit();
                 }
 
@@ -120,6 +132,8 @@ public class home_bar extends AppCompatActivity implements inicioFragment.OnFrag
         setContentView(R.layout.activity_home_bar);
         tabs = findViewById(R.id.tabletas);
         SetupTabs(tabs);
+        this.window =getWindow();
+        window.setStatusBarColor(Color.parseColor("#4CAF50"));
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         //navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

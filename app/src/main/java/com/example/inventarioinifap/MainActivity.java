@@ -1,10 +1,12 @@
 package com.example.inventarioinifap;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,12 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
     Button btniniciar;
     EditText email, pass;
-    JsonParser parser;
+    Window window;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.window = getWindow();
+        window.setStatusBarColor(Color.parseColor("#4CAF50"));
 
         getSupportActionBar().hide();
 

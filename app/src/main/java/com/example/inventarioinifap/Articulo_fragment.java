@@ -24,6 +24,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 /**
@@ -44,6 +47,7 @@ public class Articulo_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     Articulos articulos;
+    private  int dia, mes, año;
 
     private OnFragmentInteractionListener mListener;
 
@@ -91,6 +95,7 @@ public class Articulo_fragment extends Fragment {
         centro = view.findViewById(R.id.tvcentro);
         agregar = view.findViewById(R.id.agregar);
         agregar.setEnabled(true);
+        setFechaActual();
 
         try {
             final JSONObject datos = new JSONObject();
@@ -114,8 +119,9 @@ public class Articulo_fragment extends Fragment {
                             no_sini.setText(articulos.getNo_sini());
                             descripcion.setText(articulos.getDescripcion());
                             centro.setText(articulos.getCentro());
+                            final String fecha_actual = setFechaActual();
 
-
+                            Log.e("fecha", fecha_actual);
                             agregar.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -136,6 +142,7 @@ public class Articulo_fragment extends Fragment {
                                         mandardatos.put("Rfc_empleado", articulos.getRfc_empleado());
                                         mandardatos.put("Empleado", articulos.getEmpleado());
                                         mandardatos.put("Adscripcion", articulos.getAdscripcion());
+                                        mandardatos.put("fecha_registro", fecha_actual);
                                         Log.d("datosenviador", mandardatos.toString());
                                         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.RegistrarArticulo, mandardatos, new Response.Listener<JSONObject>() {
                                             @Override
@@ -226,5 +233,16 @@ public class Articulo_fragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public String setFechaActual()
+    {
+        Calendar c = Calendar.getInstance();
+        año = c.get(Calendar.YEAR);
+        mes = c.get(Calendar.MONTH);
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        Format formatter = new SimpleDateFormat("yyyy/MM/dd");
+        String s = formatter.format(c.getTime());
+        return s;
     }
 }

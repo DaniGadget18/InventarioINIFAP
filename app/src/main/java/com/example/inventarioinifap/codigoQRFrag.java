@@ -23,7 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -57,6 +60,7 @@ public class codigoQRFrag extends Fragment implements ZXingScannerView.ResultHan
     private ArrayList<Integer> mSelectedIndices;
     private int mCameraId = -1;
     private home_bar csActivity;
+    private  int dia, mes, año;
 
     private OnFragmentInteractionListener mListener;
 
@@ -153,6 +157,7 @@ public class codigoQRFrag extends Fragment implements ZXingScannerView.ResultHan
         JSONObject objcodigo = new JSONObject();
         try {
             objcodigo.put("codigo", result.toString());
+            objcodigo.put("fecha_registro", setFechaActual());
 
             final JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.ObtenerArticulo, objcodigo, new Response.Listener<JSONObject>() {
                 @Override
@@ -177,7 +182,7 @@ public class codigoQRFrag extends Fragment implements ZXingScannerView.ResultHan
                         }
                         if (mensaje.equals("2"))
                         {
-                            Toast.makeText(csActivity, "Hubo un error al verificar el articulo", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(csActivity, response.getString("datos"), Toast.LENGTH_SHORT).show();
                             codigoQRFrag codigQR = new codigoQRFrag();
                             fragmentTransaction = getFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.container_frame,codigQR, "codigoqr");
@@ -262,5 +267,15 @@ public class codigoQRFrag extends Fragment implements ZXingScannerView.ResultHan
         escanerView.startCamera(mCameraId);
         escanerView.setFlash(mFlash);
         escanerView.setAutoFocus(mAutoFocus);
+    }
+    public String setFechaActual()
+    {
+        Calendar c = Calendar.getInstance();
+        año = c.get(Calendar.YEAR);
+        mes = c.get(Calendar.MONTH);
+        dia = c.get(Calendar.DAY_OF_MONTH);
+        Format formatter = new SimpleDateFormat("yyyy/MM/dd");
+        String s = formatter.format(c.getTime());
+        return s;
     }
 }

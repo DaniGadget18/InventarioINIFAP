@@ -1,7 +1,9 @@
 package com.example.inventarioinifap;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -18,6 +20,7 @@ public class DetalleArticulo extends AppCompatActivity {
 
     TextView tvnosini, tvnosinaso, tvcentro, tvdescripcion, tvcosto, tvfecha, tvnucuenta, tvestatusbien, tvrecurso, tvempleado, tvadscripcion;
     DetalleArticulo detalleArticulo;
+    Window window;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,9 @@ public class DetalleArticulo extends AppCompatActivity {
         tvrecurso = findViewById(R.id.tvrecursoact);
         tvempleado = findViewById(R.id.tvempleadoact);
         tvadscripcion = findViewById(R.id.tvadscripcionact);
+
+        this.window = getWindow();
+        window.setStatusBarColor(Color.parseColor("#4CAF50"));
 
 
 
