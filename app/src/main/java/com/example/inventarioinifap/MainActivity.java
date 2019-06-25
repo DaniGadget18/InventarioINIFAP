@@ -1,5 +1,6 @@
 package com.example.inventarioinifap;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button btniniciar;
     EditText email, pass;
     Window window;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         btniniciar = findViewById(R.id.iniciarSesion);
         email = findViewById(R.id.editCorreo);
         pass = findViewById(R.id.editPassword);
+        progressBar = findViewById(R.id.proceso);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public void iniciar(final View view) throws JSONException {
@@ -49,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         final JSONObject datos = new JSONObject();
         datos.put("correo", email.getText().toString());
         datos.put("password", pass.getText().toString());
+
+        progressBar.setVisibility(View.VISIBLE);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Constantes.IniciarSesion, datos, new Response.Listener<JSONObject>() {
             @Override
@@ -66,10 +73,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Bienvenido: " + usuario.getCorreo(), Toast.LENGTH_SHORT).show();
                         activityInicio();
                         finish();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                     if (estado.equals("2")) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         String mensaje = response.getString("datos");
                         Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -79,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.INVISIBLE);
+
                 Toast.makeText(MainActivity.this, "Hay una error en la conexión a Internet", Toast.LENGTH_SHORT).show();
             }
         });
@@ -97,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         Intent home = new Intent(this, home_bar.class);
         home.putExtra("correo",email.getText().toString());
         startActivity(home);
+
 
     }
 }

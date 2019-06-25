@@ -63,6 +63,7 @@
         android:text="Agregar"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="80dp"
-        android:id="@+id/agregar" />
+        android:id="@+id/agregar"
+        android:background="@drawable/estilobtnsesion"/>
 
 </FrameLayout>

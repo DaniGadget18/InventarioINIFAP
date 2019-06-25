@@ -1,5 +1,6 @@
 package com.example.inventarioinifap;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -47,6 +49,7 @@ public class CerrarInventario extends Fragment {
     private String mParam1;
     private String mParam2;
     RecyclerView recyclerView;
+    ProgressBar progressBar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,20 +92,25 @@ public class CerrarInventario extends Fragment {
         Button cerrar;
         cerrar = view.findViewById(R.id.cerrarinv);
         recyclerView = view.findViewById(R.id.listaArtFaltantes);
+        progressBar = view.findViewById(R.id.procesofaltantes);
+        progressBar.setVisibility(View.INVISIBLE);
         cerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                progressBar.setVisibility(View.VISIBLE);
                 final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, Constantes.ArticulosFaltantes, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
 
+                            Log.d("response", response.toString());
                             String mensaje = response.getString("estado");
                             String datos = response.getString("datos");
                             if (mensaje.equals("2"))
                             {
                                 Toast.makeText(getContext(), "¡El inventario esta completo! :)", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+
                             }
                             if (mensaje.equals("1"))
                             {
@@ -113,6 +121,7 @@ public class CerrarInventario extends Fragment {
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                                 recyclerView.setAdapter(adaptador);
                                 Toast.makeText(getContext(), "Aun te faltan estos articulos por escanear", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
 
 
@@ -124,14 +133,14 @@ public class CerrarInventario extends Fragment {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(getContext(), "Hubo un problema con la conexión a internet, comprueba tu conexión", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
 
                 VolleyS.getInstance(getContext()).getmRequestQueue().add(request);
             }
         });
-
 
         return view;
     }
