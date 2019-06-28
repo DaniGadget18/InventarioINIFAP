@@ -21,7 +21,7 @@ public class Constantes {
     /**
      * Dirección IP de INIFAP NORTE CENTRO
      */
-    private static final String IP = "http://192.168.1.104";
+    private static final String IP = "http://www.inifap-nortecentro.gob.mx";
     /**
      * URLs del Web Service
      */
